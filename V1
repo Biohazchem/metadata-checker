@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" 
+           xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" 
+           xsi:type="MailApp">
+
+  <!-- Basic metadata for your add-in -->
+  <Id>12345678-1234-1234-1234-123456789abc</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Your Company</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Email Metadata Checker" />
+  <Description DefaultValue="Checks SPF, DKIM, and DMARC for incoming emails" />
+  <IconUrl DefaultValue="https://www.example.com/icon.png" />
+  <SupportUrl DefaultValue="https://www.example.com/support" />
+
+  <!-- Permissions for your add-in (restricted to just email metadata) -->
+  <Permissions>ReadItem</Permissions>
+
+  <!-- Define the Outlook mailbox type and the forms your add-in will be available in -->
+  <Hosts>
+    <Host Name="Mailbox" />
+  </Hosts>
+
+  <!-- Where to place the add-in within the Outlook UI -->
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://www.example.com/metadata-checker.html" />
+        <RequestedHeight>250</RequestedHeight>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
+  <!-- Mail App Version Overrides -->
+  <VersionOverrides V1_0="1.0.0">
+    <Requirements>
+      <bt:Sets DefaultMinVersion="1.1">
+        <bt:Set Name="Mailbox" />
+      </bt:Sets>
+    </Requirements>
+
+    <!-- Ribbon integration for the add-in -->
+    <Hosts>
+      <Host xsi:type="MailHost">
+        <DesktopFormFactor>
+          <!-- Message Read scenario -->
+          <ExtensionPoint xsi:type="MessageReadCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="msgReadGroup">
+                <Label resid="groupLabel" />
+                <Control xsi:type="Button" id="msgReadButton">
+                  <Label resid="buttonLabel" />
+                  <Supertip>
+                    <Title resid="buttonTitle" />
+                    <Description resid="buttonDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="icon16" />
+                    <bt:Image size="32" resid="icon32" />
+                    <bt:Image size="80" resid="icon80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="taskpaneUrl" />
+                    <Title resid="paneTitle" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <!-- Localization resources -->
+    <Resources>
+      <bt:Images>
+        <bt:Image id="icon16" DefaultValue="https://www.example.com/icon16.png" />
+        <bt:Image id="icon32" DefaultValue="https://www.example.com/icon32.png" />
+        <bt:Image id="icon80" DefaultValue="https://www.example.com/icon80.png" />
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="taskpaneUrl" DefaultValue="https://www.example.com/metadata-checker.html" />
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="groupLabel" DefaultValue="Email Check Tools" />
+        <bt:String id="buttonLabel" DefaultValue="Check Metadata" />
+        <bt:String id="buttonTitle" DefaultValue="Check Email Metadata" />
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="buttonDescription" DefaultValue="Checks SPF, DKIM, and DMARC for the selected email." />
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+
+</OfficeApp>
